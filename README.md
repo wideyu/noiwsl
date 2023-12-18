@@ -28,7 +28,9 @@ D:\NOIwsl> dir
 ```bash
 D:\NOIwsl> Setup.cmd ubuntu-noi-v2.0.iso /casper/filesystem.squashfs NOIwsl-2.0 usrname
 ```
-  Setup.cmd将执行以下步骤
+    参数ubuntu-noi-v2.0.iso、/casper/filesystem.squashfs一般不需要修改
+    参数NOIwsl-2.0、usrname可按需修改
+    Setup.cmd将执行以下步骤
   
   0) Import Alpine+squashfs-tools-ng ... 导入sqfs2tar工具
   1) Convert iso->rootfs.tar (iso2tar.sh via Alpine) ... 从iso提取rootfs
@@ -39,8 +41,7 @@ D:\NOIwsl> Setup.cmd ubuntu-noi-v2.0.iso /casper/filesystem.squashfs NOIwsl-2.0 
   6) xrdp-installer.sh ... 联网安装xrdp、设置远程桌面
   7) Create NOIwsl-2.0.cmd ... 生成打开远程桌面的脚本
 * 运行生成的NOIwsl-2.0.cmd，连接NOIwsl的远程桌面，输入用户usrname、密码登录
-* 参数ubuntu-noi-v2.0.iso、/casper/filesystem.squashfs一般不需要修改
-* 参数NOIwsl-2.0、usrname可按需修改
+
 
 ## 致谢
 * [AlpineLinux](https://alpinelinux.org)

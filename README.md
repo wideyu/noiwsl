@@ -35,7 +35,7 @@ D:\NOIwsl> Setup.cmd ubuntu-noi-v2.0.iso /casper/filesystem.squashfs NOIwsl-2.0 
   3) Unregister Alpine ... 注销工具
   4) Adduser usrname ... 按提示输入用户usrname对应的密码
   5) Enable Systemd and set default user ... 启用Systemd、默认用户
-  6) xrdp-installer.sh ... 在线安装、设置xrdp
+  6) xrdp-installer.sh ... 联网安装xrdp、设置远程桌面
   7) Create NOIwsl-2.0.cmd ... 生成打开远程桌面的脚本
 * 运行生成的NOIwsl-2.0.cmd，连接NOIwsl的远程桌面，输入用户usrname、密码登录
 * 参数ubuntu-noi-v2.0.iso、/casper/filesystem.squashfs一般不需要修改

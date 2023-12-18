@@ -28,6 +28,7 @@ D:\NOIwsl> dir
 ```bash
 D:\NOIwsl> Setup.cmd ubuntu-noi-v2.0.iso /casper/filesystem.squashfs NOIwsl-2.0 usrname
 ```
+
     参数ubuntu-noi-v2.0.iso、/casper/filesystem.squashfs一般不需要修改
     参数NOIwsl-2.0、usrname可按需修改
     Setup.cmd将执行以下步骤

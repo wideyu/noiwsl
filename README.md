@@ -51,7 +51,7 @@ D:\NOIwsl> Setup.cmd ubuntu-noi-v2.0.iso /casper/filesystem.squashfs NOIwsl-2.0 
   6) xrdp-installer.sh ... 联网安装xrdp、设置远程桌面
   7) Create NOIwsl-2.0.cmd ... 生成打开远程桌面的脚本
   ```
-* 运行生成的NOIwsl-2.0.cmd，连接远程桌面，输入用户usrname、密码登录，即可试用NOI Linux 2.0 图形桌面。
+* 运行生成的NOIwsl-2.0.cmd，连接远程桌面，输入用户usrname、密码登录，即可使用NOI Linux 2.0 图形桌面。
 
 
 ## 致谢

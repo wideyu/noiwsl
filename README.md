@@ -1,5 +1,6 @@
 # NOIwsl
 
+NOIwsl Script ~ install NOI Linux ISO to WSL
 NOIwsl 脚本从NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置远程桌面，实现在Windows远程连接使用NOI Linux的图形桌面。
 
 ## 背景

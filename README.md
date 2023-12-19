@@ -1,40 +1,45 @@
 # NOIwsl
 
-Windows 远程桌面连接NOILinux。WSL已支持Systemd，NOIwsl改为以脚本实现从NOILinux ISO 文件提取rootfs.tar导入wsl。（之前的版本保留[NOIwslLauncher](https://github/wideyu/noiwslLauncher)）
+NOIwsl 脚本从NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置远程桌面，实现在Windows远程连接使用NOI Linux的图形桌面。
+
+## 背景
+之前以Launcher.exe 方式（[NOIwslLauncher](https://github/wideyu/noiwslLauncher) ）导入预制rootfs、设置远程桌面，实现在Windows 远程连接使用NOI Linux的图形桌面。最新版WSL 已支持Systemd，NOIwsl 改为以脚本实现。
 
 ## Requirements
 * WSL2 latest version
+  ```bash
+  D:\NOIwsl>wsl --version
+  WSL 版本： 2.0.14.0
+  内核版本： 5.15.133.1-1
+  WSLg 版本： 1.0.59
+  ```
 * Internet ready
 
 ## Install
-* Code / Download ZIP, Unzip to D:\NOIwsl
+* Code / Download ZIP, Unzip files to D:\NOIwsl
 * Download [ubuntu-noi-v2.0.iso](https://noiresources.ccf.org.cn/ubuntu-noi-v2.0.iso) save to D:\NOIwsl
-* Open cmd in D:\NOIwsl
+* Files in D:\NOIwsl
 ```bash
-D:\NOIwsl> dir
- 驱动器 D 中的卷是 Data
- 卷的序列号是 9696-1731
-
- D:\Noiwsl 的目录
-
-2023/12/18  19:33    <DIR>          .
-2023/12/17  22:58        14,837,760 alpine-sqfs2tar.tar.gz
-2023/12/18  18:25                89 iso2tar.sh
-2023/12/18  18:42             1,273 Setup.cmd
-2023/12/14  14:40     3,631,218,688 ubuntu-noi-v2.0.iso
-2023/10/14  15:48            53,600 xrdp-installer-1.4.8.sh
+D:\NOIwsl> dir/b
+alpine-sqfs2tar.tar.gz
+iso2tar.sh
+Setup.cmd
+ubuntu-noi-v2.0.iso
+xrdp-installer-1.4.8.sh
 ```
-* 安装脚本Setup.cmd 的参数说明：Setup.cmd iso-file squashfs-file DistroName UserName
+* Open cmd in D:\NOIwsl, Run Setup.cmd 
 ```bash
 D:\NOIwsl> Setup.cmd ubuntu-noi-v2.0.iso /casper/filesystem.squashfs NOIwsl-2.0 usrname
 ```
-
-参数ubuntu-noi-v2.0.iso、/casper/filesystem.squashfs一般不需要修改
-
-参数NOIwsl-2.0、usrname可按需修改
-
-Setup.cmd将执行以下步骤
-  
+* Setup.cmd 参数说明
+  ```bash
+  ubuntu-noi-v2.0.iso -------- 下载的NOI Linux 2.0 文件
+  /casper/filesystem.squashfs ---- iso 内部squshfs 文件
+  NOIwsl-2.0 --- WSL Distro 名
+  usrname ---- 自定义登录用户名
+  ```
+* Setup.cmd将执行以下步骤
+  ```bash
   0) Import Alpine+squashfs-tools-ng ... 导入sqfs2tar工具
   1) Convert iso->rootfs.tar (iso2tar.sh via Alpine) ... 从iso提取rootfs
   2) Import rootfs.tar ... 导入rootfs
@@ -43,7 +48,8 @@ Setup.cmd将执行以下步骤
   5) Enable Systemd and set default user ... 启用Systemd、默认用户
   6) xrdp-installer.sh ... 联网安装xrdp、设置远程桌面
   7) Create NOIwsl-2.0.cmd ... 生成打开远程桌面的脚本
-* 运行生成的NOIwsl-2.0.cmd，连接NOIwsl的远程桌面，输入用户usrname、密码登录
+  ```
+* 运行生成的NOIwsl-2.0.cmd，连接远程桌面，输入用户usrname、密码登录，即可试用NOI Linux 2.0 图形桌面。
 
 
 ## 致谢

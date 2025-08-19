@@ -26,7 +26,7 @@ if not exist "%iso2tar%" (
 	goto xxx
 )
 echo: & echo 1. wsl.exe -d %alpine% -u root -e %iso2tar% %iso% "/casper/filesystem.squashfs" /root/rootfs.tar
-REM wsl.exe -d %alpine% -u root -e %iso2tar% %iso% "/casper/filesystem.squashfs" /root/rootfs.tar
+wsl.exe -d %alpine% -u root -e %iso2tar% %iso% "/casper/filesystem.squashfs" /root/rootfs.tar
 
 set noiwsl=noiwsl2
 echo: & echo 2. wsl.exe --import %noiwsl% .\vhdx-%noiwsl% \\wsl.localhost\%alpine%/root/rootfs.tar --version 2
@@ -64,3 +64,4 @@ echo:
 
 :xxx
 pause
+

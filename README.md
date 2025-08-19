@@ -5,9 +5,9 @@ NOIwsl Script ~ install NOI Linux ISO to WSL
 NOIwsl 脚本从NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置WSLg (Wayland)，实现在WSL2使用NOI Linux的图形桌面。
 
 ## 背景
-之前以Launcher.exe 方式（[NOIwslLauncher](https://github.com/wideyu/noiwslLauncher) ）导入预制rootfs、设置远程桌面，实现在Windows 远程连接使用NOI Linux的图形桌面。最新版WSL 已支持Systemd，NOIwsl 改为以脚本实现。
-再以xrdp方式实现远程使用NOI Linux的图形桌面。
-现在以Full desktop shell in WSL2 using WSLg (Wayland)(https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)，以wslg方式使用NOI Linux的图形桌面。
+* 之前以Launcher.exe 方式（[NOIwslLauncher](https://github.com/wideyu/noiwslLauncher) ）导入预制rootfs、设置远程桌面，实现在Windows 远程连接使用NOI Linux的图形桌面。
+* 再以脚本实现xrdp方式远程使用NOI Linux的图形桌面。WSL2支持Systemd。
+* 现在以Full desktop shell in WSL2 using WSLg (Wayland)(https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)，以wslg方式使用NOI Linux的图形桌面。
 ## Requirements
 * WSL2 latest version
   ```bash

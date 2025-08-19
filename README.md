@@ -25,7 +25,7 @@ NOIwsl 脚本从NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置W
   ```
 
 ## Install
-* Download ZIP（Code or Release）, Unzip files to D:\NOIwsl
+* Download ZIP（Code or Releases）, Unzip files to D:\NOIwsl
 * Files in D:\NOIwsl
   ```bash
   D:\NOIwsl> dir/b

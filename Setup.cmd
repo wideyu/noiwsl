@@ -1,32 +1,66 @@
+wsl.exe --version
 @echo off
+REM dir "%~dp0*.*" /b
+cd /d "%~dp0"
 
-echo: & echo 0) Import Alpine+squashfs-tools-ng ...
-set alpine=alpine-sqfs2tar-%RANDOM%
-wsl.exe --import %alpine% ./%alpine% alpine-sqfs2tar.tar.gz --version 2
+set alpine=alpine-add-pv
+if not exist "%~dp0%alpine%.tar.gz" (
+	echo ERROR: "%~dp0%alpine%.tar.gz" file not found
+	goto xxx
+)
+echo: & echo 0. wsl.exe --import %alpine% "%~dp0%alpine%" "%~dp0%alpine%.tar.gz" --version 2
+wsl.exe --import %alpine% "%~dp0%alpine%" "%~dp0%alpine%.tar.gz" --version 2
 
-echo: & echo 1) Convert iso to rootfs.tar (iso2tar.sh Alpine+squashfs-tools-ng) ...
-wsl.exe -d %alpine% -u root -e ./iso2tar.sh %1 %2 /tmp/rootfs.tar
+set iso=ubuntu-noi-v2.0.iso
+if not exist "%iso%" (
+	echo Auto download https://noiresources.ccf.org.cn/download/ubuntu-noi-v2.0.iso...
+	curl -LjO "https://noiresources.ccf.org.cn/download/ubuntu-noi-v2.0.iso"
+)
+if not exist "%iso%" (
+	echo ERROR: "%iso%" iso file not found
+	goto xxx
+)
+set iso2tar=./iso2tar.sh
+if not exist "%iso2tar%" (
+	echo ERROR: "%iso2tar%" file not found
+	goto xxx
+)
+echo: & echo 1. wsl.exe -d %alpine% -u root -e %iso2tar% %iso% "/casper/filesystem.squashfs" /root/rootfs.tar
+REM wsl.exe -d %alpine% -u root -e %iso2tar% %iso% "/casper/filesystem.squashfs" /root/rootfs.tar
 
-echo: & echo 2) Import rootfs.tar ...
-wsl.exe --import %3 .\data-%3 \\wsl.localhost\%alpine%/tmp/rootfs.tar --version 2
+set noiwsl=noiwsl2
+echo: & echo 2. wsl.exe --import %noiwsl% .\vhdx-%noiwsl% \\wsl.localhost\%alpine%/root/rootfs.tar --version 2
+wsl.exe --import %noiwsl% .\vhdx-%noiwsl% \\wsl.localhost\%alpine%/root/rootfs.tar --version 2
+echo If %noiwsl% already exists, wsl.exe --unregister %noiwsl% first.
 
-echo: & echo 3) Unregister Alpine ...
+echo: & echo 3. wsl.exe --unregister %alpine%
 wsl.exe --unregister %alpine%
-rmdir %alpine%
 
-echo: & echo 4) Adduser %4 ...
-wsl.exe -d %3 -u root adduser --quiet --gecos '' %4
-wsl.exe -d %3 -u root usermod -aG adm,dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev %4
+set fix=./wslg-fix.sh
+if not exist "%fix%" (
+	echo ERROR: "%fix%" file not found
+	goto xxx
+)
+echo: & echo 4. wsl.exe -d %noiwsl% -u root -e %fix%
+wsl.exe -d %noiwsl% -u root -e %fix%
 
-echo: & echo 5) Enable Systemd and set default user ...
-wsl.exe -d %3 -u root echo -e "[boot]\nsystemd=true\n[user]\ndefault=%4" ^> /etc/wsl.conf
-wsl.exe -t %3
+set user=%1
+if "%user%"=="" set user="noier"
+echo: & echo 5. wsl.exe -d %noiwsl% -u root adduser --quiet --gecos '' %user%
+wsl.exe -d %noiwsl% -u root adduser --quiet --gecos '' %user%
+wsl.exe -d %noiwsl% -u root usermod -aG adm,dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev %user%
 
-echo: & echo 6) xrdp-installer.sh ...
-wsl.exe -d %3 -u %4 -e ./xrdp-installer-1.4.8.sh -s
+echo: & echo 6. Enable Systemd and set default user %user% ...
+wsl.exe -d %noiwsl% -u root echo -e "[boot]\nsystemd=true\n[user]\ndefault=%user%" ^> /etc/wsl.conf
+wsl.exe -t %noiwsl%
 
-echo: & echo 7) Create %3.cmd ...
-wsl.exe -d %3 echo -e "@echo off\ncls\necho Don't close, remote desktop depends on this window...\nwsl.exe -d %3 -u root /mnt/c/windows/system32/mstsc.exe /v:\$(hostname -I)" > %3.cmd
+echo: & echo Usage:
+echo Open terminal:      wsl.exe -d %noiwsl%
+echo Run full desktop:   wslgnome ^&
+echo: & echo Settings:
+echo Change resolution:  sudo nano /usr/local/sbin/wslgnome
+echo Default resolution: MUTTER_DEBUG_DUMMY_MODE_SPECS=1600x900
+echo: 
 
-echo: & echo Finished.
-echo: & echo Execute %3.cmd to connect remote desktop.
+:xxx
+pause

@@ -9,7 +9,11 @@ NOIwsl 脚本从NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置W
 * 再以脚本实现xrdp方式远程使用NOI Linux的图形桌面。WSL2支持Systemd。
 * 最新版参考[Full desktop shell in WSL2 using WSLg (Wayland)](https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)，以wslg方式使用NOI Linux的图形桌面。
 ## Requirements
-* WSL2 latest version
+* 联网更新WSL
+  ```bash
+  wsl.exe --update
+  ```
+* 已测试版本
   ```bash
   WSL 版本: 2.5.9.0
   内核版本: 6.6.87.2-1
@@ -19,7 +23,6 @@ NOIwsl 脚本从NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置W
   DXCore 版本: 10.0.26100.1-240331-1435.ge-release
   Windows: 10.0.26100.4202
   ```
-* Internet ready
 
 ## Install
 * Download ZIP（Code or Release）, Unzip files to D:\NOIwsl
@@ -63,5 +66,7 @@ NOIwsl 脚本从NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置W
 * [Full desktop shell in WSL2 using WSLg (Wayland)](https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)
 * [AlpineLinux](https://alpinelinux.org)
 * [NOI Linux 2.0](https://www.noi.cn/gynoi/jsgz/2021-07-16/732450.shtml)
+
   [squashfs-tools-ng](https://github.com/AgentD/squashfs-tools-ng)
+  
   [xRDP Installation Script](https://c-nergy.be)

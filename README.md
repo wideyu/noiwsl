@@ -1,6 +1,7 @@
 # NOIwsl
 
-NOIwsl Script ~ install NOI Linux to WSL, use NOI Linux full desktop in Windows.
+NOI Linux full desktop GUI in Windows WSL2/WSLg.
+在 Windows WSL2/WSLg 安装 NOI Linux 完整图形桌面。
 
 NOIwsl 脚本从 NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置WSLg (Wayland)，实现在Windows中直接使用完整的NOI Linux的图形桌面。
 

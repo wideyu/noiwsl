@@ -2,19 +2,20 @@
 
 NOIwsl Script ~ install NOI Linux to WSL, use NOI Linux full desktop in Windows.
 
-NOIwsl 脚本从NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置WSLg (Wayland)，实现在Windows中直接使用完整的NOI Linux的图形桌面。
+NOIwsl 脚本从 NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置WSLg (Wayland)，实现在Windows中直接使用完整的NOI Linux的图形桌面。
 
-## 背景
-* 之前以Launcher.exe 方式（[NOIwslLauncher](https://github.com/wideyu/noiwslLauncher) ）导入预制rootfs、设置远程桌面，实现在Windows 远程连接使用NOI Linux的图形桌面。
-* 再以脚本实现xrdp方式远程使用NOI Linux的图形桌面。WSL2支持Systemd。
-* 最新版参考[Full desktop shell in WSL2 using WSLg (Wayland)](https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)，以wslg方式使用NOI Linux的图形桌面。
+* 最初以Launcher.exe 方式（[NOIwslLauncher](https://github.com/wideyu/noiwslLauncher) ），导入预制支持systemd的rootfs、设置远程桌面，实现在Windows远程连接使用NOI Linux的图形桌面。
+* 然后以脚本方式，提取rootfs、安装到WSL、设置xrdp远程使用NOI Linux的图形桌面，WSL2支持Systemd。
+* 最新以脚本方式，提取rootfs、安装到WSL、参考[Full desktop shell in WSL2 using WSLg (Wayland)](https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)，通过WSLg使用NOI Linux的图形桌面。
+
 ## Requirements
 * 联网更新WSL
   ```bash
-  wsl.exe --update
+  C:\Users\admin> wsl.exe --update
   ```
 * 已测试版本
   ```bash
+  C:\Users\admin> wsl.exe --version
   WSL 版本: 2.5.9.0
   内核版本: 6.6.87.2-1
   WSLg 版本: 1.0.66
@@ -31,36 +32,35 @@ NOIwsl 脚本从NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置W
   D:\NOIwsl> dir/b
   alpine-add-pv.tar.gz
   iso2tar.sh
-  Setup.cmd
+  setup.cmd
+  wslg-fix.sh
   ```
-* Open cmd in D:\NOIwsl, Run Setup.cmd 
+* Open cmd in D:\NOIwsl, Run setup.cmd usrname(默认noier) 参数为自定义登录用户名
   ```bash
-  D:\NOIwsl> Setup.cmd usrname
+  D:\NOIwsl> setup.cmd usrname
   ```
-* usrname 参数为自定义登录用户名
-* Setup.cmd 将执行以下步骤
+* setup.cmd usrname(默认noier) 将执行以下步骤
   ```bash
-  0. 导入iso2tar.sh脚本      wsl.exe --import alpine-add-pv alpine-add-pv alpine-add-pv.tar.gz --version 2
+  0. 导入iso2tar.sh脚本       wsl.exe --import alpine-add-pv alpine-add-pv alpine-add-pv.tar.gz --version 2
   1. 提取rootfs可自动iso下载  wsl.exe -d alpine-add-pv -u root -e ./iso2tar.sh ubuntu-noi-v2.0.iso /casper/filesystem.squashfs /root/rootfs.tar
-  2. 导入NOI-Linux文件系统   wsl.exe --import noiwsl2 .\vhdx-noiwsl2 \\wsl.localhost\alpine-add-pv/root/rootfs.tar --version 2
-  3. 注销iso2tar.sh脚本      wsl.exe --unregister alpine-add-pv
-  4. 运行wslg-fix.sh脚本     wsl.exe -d noiwsl2 -u root -e ./wslg-fix.sh 
-  5. 设置用户密码            wsl.exe -d noiwsl2 -u root adduser --quiet --gecos '' usrname 
+  2. 导入NOI-Linux文件系统    wsl.exe --import noiwsl2 .\vhdx-noiwsl2 \\wsl.localhost\alpine-add-pv/root/rootfs.tar --version 2
+  3. 注销iso2tar.sh脚本       wsl.exe --unregister alpine-add-pv
+  4. 运行wslg-fix.sh脚本      wsl.exe -d noiwsl2 -u root -e ./wslg-fix.sh 
+  5. 设置用户、用户密码        wsl.exe -d noiwsl2 -u root adduser --quiet --gecos '' usrname 
   6. 启用Systemd、默认用户    Enable Systemd and set default user usrname 
   ```
-* 打开NOI-Linux终端，在windows运行
+* 如需打开NOI-Linux终端，在Windows运行
   ```bash
   wsl.exe -d noiwsl2
   ```
-* 打开NOI-Linux图像桌面，在NOI-Linux终端运行
+* 如需打开NOI-Linux图像桌面，在“wsl.exe -d noiwsl2”打开的NOI Linux终端运行
   ```bash
-  wslgnome &
+  $ wslgnome &
   ```
 * 分辨率可修改启动文件内 MUTTER_DEBUG_DUMMY_MODE_SPECS=1600x900
   ```bash
-  sudo nano /usr/local/sbin/wslgnome
+  $ sudo nano /usr/local/sbin/wslgnome
   ```
-
 
 ## 致谢
 * [Full desktop shell in WSL2 using WSLg (Wayland)](https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)

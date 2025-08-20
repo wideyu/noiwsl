@@ -1,13 +1,10 @@
 # NOIwsl
 
-NOI Linux full desktop GUI in Windows WSL2/WSLg.
-在 Windows WSL2/WSLg 安装 NOI Linux 完整图形桌面。
+Install NOI Linux full desktop GUI in Windows WSL/WSLg.
 
-NOIwsl 脚本从 NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置WSLg (Wayland)，实现在Windows中直接使用完整的NOI Linux的图形桌面。
+在 Windows WSL/WSLg 安装 NOI Linux 完整图形桌面。
 
-* 最初以Launcher.exe 方式（[NOIwslLauncher](https://github.com/wideyu/noiwslLauncher) ），导入预制支持systemd的rootfs、设置远程桌面，实现在Windows远程连接使用NOI Linux的图形桌面。
-* 然后以脚本方式，提取rootfs、安装到WSL、设置xrdp远程使用NOI Linux的图形桌面，WSL2支持Systemd。
-* 最新以脚本方式，提取rootfs、安装到WSL、参考[Full desktop shell in WSL2 using WSLg (Wayland)](https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)，通过WSLg使用NOI Linux的图形桌面。
+NOIwsl 脚本从 NOI Linux 2.0 iso 文件，提取rootfs、安装到WSL、设置[Full desktop shell in WSL2 using WSLg (Wayland)](https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)，通过WSLg在Windows中直接使用完整的NOI Linux的图形桌面。
 
 ## Requirements
 * 联网更新WSL
@@ -85,7 +82,5 @@ $ wslgnome &
 * [Full desktop shell in WSL2 using WSLg (Wayland)](https://gist.github.com/tdcosta100/7def60bccc8ae32cf9cacb41064b1c0f)
 * [AlpineLinux](https://alpinelinux.org)
 * [NOI Linux 2.0](https://www.noi.cn/gynoi/jsgz/2021-07-16/732450.shtml)（Ubuntu-NOI 2.0版）已经基于Ubuntu 20.04.1版定制完成，现正式对外发布。根据NOI科学委员会决议，该系统将自2021年9月1日起作为NOI系列比赛和CSP-J/S等活动的标准环境使用。
-
-  [squashfs-tools-ng](https://github.com/AgentD/squashfs-tools-ng)
-  
-  [xRDP Installation Script](https://c-nergy.be)
+* [squashfs-tools-ng](https://github.com/AgentD/squashfs-tools-ng) 最初版本以Launcher.exe 方式（[NOIwslLauncher](https://github.com/wideyu/noiwslLauncher) ），导入预制支持systemd的rootfs、设置远程桌面，实现在Windows远程连接使用NOI Linux的图形桌面。
+* [xRDP Installation Script](https://c-nergy.be) 旧版以脚本方式，提取rootfs、安装到WSL、设置xrdp远程桌面。
